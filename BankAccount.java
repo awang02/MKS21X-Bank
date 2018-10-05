@@ -35,7 +35,6 @@ public class BankAccount {
  *@param amount The amount is how much to change the balance by.
  */
   public boolean deposit(double amount) {
-    boolean r;
     if (amount >= 0) {
       balance += amount;
       return true;
@@ -48,10 +47,21 @@ public class BankAccount {
  *@param amount The amount is how much to change the balance by.
  *@return true when the balance is large enough, false otherwise.
  */
-  public boolean withdrawl(double amount) {
+  public boolean withdraw(double amount) {
     if (amount >= 0 && balance > amount) {
       return true;
     }
     return false;
+  }
+
+// Part 2
+  private boolean authenticate(String password) {
+    return this.password.equals(password);
+  }
+
+  //Transfer money from this BankAccount to the other only when the password //matches, and the withdrawal succeeds.
+
+  public boolean transferTo(BankAccount other, double amount, String password) {
+    return other.authenticate(password) && this.withdraw(amount) && other.deposit(amount);
   }
 }
